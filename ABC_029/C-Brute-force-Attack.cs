@@ -24,37 +24,40 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
- 
+
 namespace ChomadoAtCoder
 {
 	class Chomado
 	{
 		public Chomado() {}
-	 	char[] VALID_CHARS = new char [3] { 'a', 'b', 'c' };
-		List<string> list = new List<string>();
- 
+		char[] VALID_CHARS = new char [3] { 'a', 'b', 'c' };
+
 		public static int Main()
 		{
 			new Chomado ().Calc ();
 			return 0;
 		}
+
 		void Calc()
 		{
 			var MAX_LENGTH = int.Parse (Console.ReadLine ());
-			Dive ("", 0, MAX_LENGTH);
-			list.Distinct ().ToList ().ForEach (Console.WriteLine);
+			Dive ("", MAX_LENGTH);
 		}
+
 		// 再帰関数
-		void Dive(string prefix, int level, int MAX_LENGTH)
+		void Dive(string prefix, int level)
 		{
-			level++;
-			foreach (var c in VALID_CHARS)
+			if (level == 0)
 			{
-				if (level <= MAX_LENGTH)
-					Dive (prefix + c, level, MAX_LENGTH);
-				else
-					list.Add (prefix);
+				Console.WriteLine (prefix);
+			}
+			else
+			{
+				foreach (var c in VALID_CHARS)
+				{
+					Dive (prefix + c, level - 1);
+				}
 			}
 		}
 	}
-}
+} 
